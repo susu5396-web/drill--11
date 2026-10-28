@@ -176,7 +176,9 @@ class Boy:
         self.frame = (self.frame + 1) % 8
 
     def draw(self):
-        if self.state == 'SLEEP':
+        if self.state == 'AUTO_RUN':
+            self.auto_run_state.draw(self)
+        elif self.state == 'SLEEP':
             source_y = 300 if self.face_dir == 1 else 200
             sleep_angle = 3.141592 / 2 if self.face_dir == 1 else -3.141592 / 2
             self.image.clip_composite_draw(
