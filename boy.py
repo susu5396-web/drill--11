@@ -134,12 +134,12 @@ class Boy:
             if event.key == SDLK_LEFT:
                 self.left_down = True
                 self.face_dir = -1
-                if self.state in ('IDLE', 'SLEEP'):
+                if self.state in ('IDLE', 'SLEEP', 'AUTO_RUN'):
                     self.start_run()
             elif event.key == SDLK_RIGHT:
                 self.right_down = True
                 self.face_dir = 1
-                if self.state in ('IDLE', 'SLEEP'):
+                if self.state in ('IDLE', 'SLEEP', 'AUTO_RUN'):
                     self.start_run()
 
         elif event.type == SDL_KEYUP:
