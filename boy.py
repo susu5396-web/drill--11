@@ -80,7 +80,7 @@ class Boy:
             after='enter_sleep',
         )
         self.state_machine.add_transition(
-            trigger='start_run', source=['IDLE', 'SLEEP'], dest='RUN',
+            trigger='start_run', source=['IDLE', 'SLEEP', 'AUTO_RUN'], dest='RUN',
             after='enter_run',
         )
         self.state_machine.add_transition(
