@@ -2,6 +2,44 @@ from pico2d import load_image, get_time
 from transitions import Machine
 
 
+class AutoRun:
+    """Auto Run 상태의 이동, 지속 시간, 크기 동작을 담당한다."""
+
+    SPEED = 10
+    DRAW_SIZE = 150
+
+    def __init__(self):
+        self.direction = 1
+        self.start_time = 0.0
+
+    def enter(self, boy):
+        self.start_time = get_time()
+        self.direction = boy.face_dir
+        boy.frame = 0
+
+    def update(self, boy):
+        boy.x += self.direction * self.SPEED
+        half_size = self.DRAW_SIZE // 2
+
+        if boy.x <= half_size:
+            boy.x = half_size
+            self.direction = 1
+            boy.face_dir = 1
+        elif boy.x >= 800 - half_size:
+            boy.x = 800 - half_size
+            self.direction = -1
+            boy.face_dir = -1
+
+        if get_time() - self.start_time >= 5.0:
+            boy.stop_auto_run()
+
+    def draw(self, boy):
+        source_y = 100 if boy.face_dir == 1 else 0
+        boy.image.clip_draw(
+            boy.frame * 100, source_y, 100, 100,
+            boy.x, boy.y, self.DRAW_SIZE, self.DRAW_SIZE,
+        )
+
 class Boy:
     def __init__(self):
         self.x, self.y = 400, 90
