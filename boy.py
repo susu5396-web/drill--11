@@ -5,8 +5,8 @@ from transitions import Machine
 class AutoRun:
     """Auto Run 상태의 이동, 지속 시간, 크기 동작을 담당한다."""
 
-    SPEED = 10
-    DRAW_SIZE = 150
+    SPEED = 6
+    DRAW_SIZE = 200
 
     def __init__(self):
         self.direction = 1
