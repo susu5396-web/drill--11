@@ -112,6 +112,9 @@ class Boy:
             self.x += direction * 5
             self.x = max(50, min(750, self.x))
 
+        if self.state == 'AUTO_RUN':
+            self.auto_run_state.update(self)
+
         if self.state == 'IDLE' and get_time() - self.idle_start_time >= 5.0:
             self.time_out()
 
