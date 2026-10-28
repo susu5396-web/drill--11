@@ -40,6 +40,7 @@ class AutoRun:
             boy.x, boy.y, self.DRAW_SIZE, self.DRAW_SIZE,
         )
 
+
 class Boy:
     def __init__(self):
         self.x, self.y = 400, 90
