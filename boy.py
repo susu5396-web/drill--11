@@ -49,10 +49,11 @@ class Boy:
         self.idle_start_time = get_time()
         self.left_down = False
         self.right_down = False
+        self.auto_run_state = AutoRun()
 
         self.state_machine = Machine(
             model=self,
-            states=['IDLE', 'RUN', 'SLEEP'],
+            states=['IDLE', 'RUN', 'AUTO_RUN', 'SLEEP'],
             initial='IDLE',
             auto_transitions=False,
         )
@@ -70,6 +71,10 @@ class Boy:
             after='animate_sleep',
         )
         self.state_machine.add_transition(
+            trigger='tick', source='AUTO_RUN', dest=None,
+            after='animate_auto_run',
+        )
+        self.state_machine.add_transition(
             trigger='time_out', source='IDLE', dest='SLEEP',
             after='enter_sleep',
         )
@@ -79,6 +84,14 @@ class Boy:
         )
         self.state_machine.add_transition(
             trigger='stop_run', source='RUN', dest='IDLE',
+            after='enter_idle',
+        )
+        self.state_machine.add_transition(
+            trigger='start_auto_run', source='IDLE', dest='AUTO_RUN',
+            after='enter_auto_run',
+        )
+        self.state_machine.add_transition(
+            trigger='stop_auto_run', source='AUTO_RUN', dest='IDLE',
             after='enter_idle',
         )
         self.state_machine.add_transition(
@@ -137,6 +150,9 @@ class Boy:
     def enter_run(self):
         self.frame = 0
 
+    def enter_auto_run(self):
+        self.auto_run_state.enter(self)
+
     def enter_sleep(self):
         self.frame = 0
 
@@ -144,6 +160,9 @@ class Boy:
         self.frame = (self.frame + 1) % 8
 
     def animate_run(self):
+        self.frame = (self.frame + 1) % 8
+
+    def animate_auto_run(self):
         self.frame = (self.frame + 1) % 8
 
     def animate_sleep(self):
