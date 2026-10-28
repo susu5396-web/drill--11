@@ -37,7 +37,7 @@ class AutoRun:
         source_y = 100 if boy.face_dir == 1 else 0
         boy.image.clip_draw(
             boy.frame * 100, source_y, 100, 100,
-            boy.x, boy.y, self.DRAW_SIZE, self.DRAW_SIZE,
+            boy.x, boy.y + 25 , self.DRAW_SIZE, self.DRAW_SIZE,
         )
 
 
