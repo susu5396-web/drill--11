@@ -110,7 +110,7 @@ class Boy:
             if self.right_down:
                 direction += 1
 
-            self.x += direction * 5
+            self.x += direction * 3
             self.x = max(50, min(750, self.x))
 
         if self.state == 'AUTO_RUN':
