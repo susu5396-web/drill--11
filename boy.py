@@ -116,11 +116,15 @@ class Boy:
             self.time_out()
 
     def handle_event(self, event):
-        from pico2d import SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT
+        from pico2d import SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_a, SDLK_LEFT, SDLK_RIGHT
 
         if event.type == SDL_KEYDOWN:
             if self.state == 'SLEEP' and event.key == SDLK_SPACE:
                 self.wake_up()
+                return
+
+            if self.state == 'IDLE' and event.key == SDLK_a:
+                self.start_auto_run()
                 return
 
             if event.key == SDLK_LEFT:
